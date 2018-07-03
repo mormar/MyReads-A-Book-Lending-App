@@ -21,9 +21,49 @@ class BooksApp extends React.Component {
     })
   }
 
+  hash = function(s) {
+    /* Simple hash function. */
+    var a = 1, c = 0, h, o;
+    if (s) {
+        a = 0;
+        /jshint plusplus:false bitwise:false*/
+        for (h = s.length - 1; h >= 0; h--) {
+            o = s.charCodeAt(h);
+            a = (a<<6&268435455) + o + (o<<14);
+            c = a & 266338304;
+            a = c!==0?a^c>>21:a;
+        }
+    }
+    return String(a);
+};
+
   render() {
     return (
       <div className="app">
+        <div>
+          <ol className="books-grid">
+            {this.state.books.map((book) => (
+              <li key={book.id}>
+                <div className="book">
+                  <div className="book-top">
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}/>
+                    <div className="book-shelf-changer">
+                      <select>
+                        <option value="move" disabled>Move to...</option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="book-title">{book.title}</div>
+                  <div className="book-authors">{book.authors.map((author) => (<div key={this.hash(author)}>{author}</div>))}</div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
