@@ -21,20 +21,8 @@ class BooksApp extends React.Component {
     })
   }
 
-  hash = function(s) {
-    /* Simple hash function. */
-    var a = 1, c = 0, h, o;
-    if (s) {
-        a = 0;
-        /jshint plusplus:false bitwise:false*/
-        for (h = s.length - 1; h >= 0; h--) {
-            o = s.charCodeAt(h);
-            a = (a<<6&268435455) + o + (o<<14);
-            c = a & 266338304;
-            a = c!==0?a^c>>21:a;
-        }
-    }
-    return String(a);
+  generatId = function () {
+  return Math.random().toString(36).substr(2, 9);
 };
 
   render() {
@@ -58,7 +46,7 @@ class BooksApp extends React.Component {
                     </div>
                   </div>
                   <div className="book-title">{book.title}</div>
-                  <div className="book-authors">{book.authors.map((author) => (<div key={this.hash(author)}>{author}</div>))}</div>
+                  <div className="book-authors">{book.authors.map((author) => (<div key={this.generatId()}>{author}</div>))}</div>
                 </div>
               </li>
             ))}
