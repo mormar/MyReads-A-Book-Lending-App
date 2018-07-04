@@ -1,6 +1,7 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import Bookshelf from './Bookshelf.js'
 
 class BooksApp extends React.Component {
   state = {
@@ -10,8 +11,9 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-     books: [],
-    showSearchPage: false
+    books: [],
+    showSearchPage: false,
+    bookshelfTitles: ['Currently Reading','Want to Read','Read']
   }
   // Load API
   componentDidMount() {
@@ -29,6 +31,15 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <div>
+          <Bookshelf
+            title={this.state.bookshelfTitles[0]}
+          />
+          <Bookshelf
+            title={this.state.bookshelfTitles[1]}
+          />
+          <Bookshelf
+            title={this.state.bookshelfTitles[2]}
+          />
           <ol className="books-grid">
             {this.state.books.map((book) => (
               <li key={book.id}>
