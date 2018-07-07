@@ -22,8 +22,8 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-      console.log(this.state.books)
-      console.log(BooksAPI.search("a"))
+      // console.log(this.state.books)
+      // console.log(BooksAPI.search("a"))
     })
   }
 
@@ -34,7 +34,9 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Search></Search>
+        <Search
+          id={this.generatId}>
+        </Search>
         <Main
           title={this.state.bookshelfTitles}
           books={this.state.books}
