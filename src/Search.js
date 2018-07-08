@@ -23,14 +23,19 @@ class Search extends Component {
  }
 
 componentDidUpdate() {
-  if(this.state.query !== ''){
-    BooksAPI.search(this.state.query).then((booksFound) => {
-    this.setState({booksFound})
-    console.log(this.state.query)
-    console.log(this.state.booksFound)
-    })
-  }
+  console.log(this.state.bookTitle);
+  this.state.booksTitle.forEach((title) => {
+    if(this.state.query.toLowerCase() === title.toLowerCase()){
+      BooksAPI.search(this.state.query).then((booksFound) => {
+      this.setState({booksFound})
+      console.log(this.state.query)
+      console.log(this.state.booksFound)
+      })
+    }
+  })
 }
+
+
 
  // componentDidMount() {
  //      BooksAPI.search(this.state.query).then((booksFound) => {
@@ -41,8 +46,7 @@ componentDidUpdate() {
 
   render(){
     let searchedBooks;
-    {this.state.booksTitle.map((bookTitle) => (
-    if(typeof this.state.booksFound !== 'undefined' && this.state.query === bookTitle ) {
+    if(typeof this.state.booksFound !== 'undefined') {
       searchedBooks = (
         <ol className="books-grid">
           {this.state.booksFound.map((book) => (
@@ -68,7 +72,7 @@ componentDidUpdate() {
         </ol>
       )
     }
-  ))}
+
 
     return(
       <div>
