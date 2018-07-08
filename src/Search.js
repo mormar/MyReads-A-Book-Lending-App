@@ -4,9 +4,18 @@ import * as BooksAPI from './BooksAPI'
 class Search extends Component {
 
   state = {
-   query: 'a',
+   query: '',
    booksFound: [],
-   isQuery: false
+   isQuery: false,
+   booksTitle: ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat',
+                'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket',
+                'Cycling','Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education',
+                'Everything', 'Fantasy','Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer',
+                'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make',
+                'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry',
+                'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction',
+                'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality',
+                'Web Development', 'iOS']
  }
 
  updateQuery = (query) => {
@@ -14,12 +23,13 @@ class Search extends Component {
  }
 
 componentDidUpdate() {
-  BooksAPI.search(this.state.query).then((booksFound) => {
-  this.setState({booksFound})
-  console.log(this.state.query)
-  console.log(this.state.booksFound)
-
-  })
+  if(this.state.query !== ''){
+    BooksAPI.search(this.state.query).then((booksFound) => {
+    this.setState({booksFound})
+    console.log(this.state.query)
+    console.log(this.state.booksFound)
+    })
+  }
 }
 
  // componentDidMount() {
@@ -31,7 +41,8 @@ componentDidUpdate() {
 
   render(){
     let searchedBooks;
-    if(this.state.isQuery == true) {
+    {this.state.booksTitle.map((bookTitle) => (
+    if(typeof this.state.booksFound !== 'undefined' && this.state.query === bookTitle ) {
       searchedBooks = (
         <ol className="books-grid">
           {this.state.booksFound.map((book) => (
@@ -50,13 +61,14 @@ componentDidUpdate() {
                  </div>
                </div>
                <div className="book-title">{book.title}</div>
-               <div className="book-authors">{book.authors.map((author) => (<div key={this.props.id()}>{author}</div>))}</div>
+               {/* <div className="book-authors">{book.authors.map((author) => (<div key={this.props.id()}>{author}</div>))}</div> */}
              </div>
            </li>
          ))}
         </ol>
       )
     }
+  ))}
 
     return(
       <div>
@@ -75,7 +87,7 @@ componentDidUpdate() {
                 value={this.state.query}
                 onChange={(event) => {
                   this.updateQuery(event.target.value)
-                  
+
                 }
                 }/>
             </div>
