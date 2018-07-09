@@ -56,7 +56,10 @@ class Search extends Component {
                  </div>
                </div>
                <div className="book-title">{book.title}</div>
-               <div className="book-authors">{book.authors.map((author) => (<div key={this.props.id()}>{author}</div>))}</div>
+
+               <div className="book-authors">
+                 { typeof book.authors === 'undefined' ? "" : book.authors.map((author) => (<div key={this.props.id()}>{author}</div>)) }
+               </div>
              </div>
            </li>
          ))}
