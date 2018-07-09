@@ -44,7 +44,7 @@ class Search extends Component {
            <li key={book.id}>
              <div className="book">
                <div className="book-top">
-                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div>
+                 {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                  <div className="book-shelf-changer">
                    <select>
                      <option value="move" disabled>Move to...</option>
@@ -56,7 +56,6 @@ class Search extends Component {
                  </div>
                </div>
                <div className="book-title">{book.title}</div>
-
                <div className="book-authors">
                  { typeof book.authors === 'undefined' ? "" : book.authors.map((author) => (<div key={this.props.id()}>{author}</div>)) }
                </div>
