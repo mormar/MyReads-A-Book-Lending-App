@@ -6,16 +6,7 @@ class Search extends Component {
   state = {
    query: '',
    booksFound: [],
-   isQuery: false,
-   booksTitle: ['Android', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat',
-                'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket',
-                'Cycling','Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education',
-                'Everything', 'Fantasy','Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer',
-                'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make',
-                'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry',
-                'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction',
-                'Shakespeare', 'Singh', 'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality',
-                'Web Development', 'iOS']
+   isQuery: false
  }
 
  updateQuery = (query) => {
@@ -23,21 +14,19 @@ class Search extends Component {
  }
 
  componentDidUpdate() {
-   console.log(this.state.bookTitle);
-   this.state.booksTitle.forEach((title) => {
-     if(this.state.query.toLowerCase() === title.toLowerCase()){
-       BooksAPI.search(this.state.query).then((booksFound) => {
-       this.setState({booksFound})
-       console.log(this.state.query)
-       console.log(this.state.booksFound)
-      })
-    }
+  console.log(this.state.bookTitle);
+  BooksAPI.search(this.state.query).then((booksFound) => {
+    console.log(typeof booksFound);
+    this.setState({booksFound})
+    console.log(this.state.query)
+    console.log(this.state.booksFound)
   })
-}
+ }
 
   render(){
     let searchedBooks;
-    if(typeof this.state.booksFound !== 'undefined') {
+    if(this.state.booksFound instanceof Array ) {
+      console.log("Works!");
       searchedBooks = (
         <ol className="books-grid">
           {this.state.booksFound.map((book) => (
