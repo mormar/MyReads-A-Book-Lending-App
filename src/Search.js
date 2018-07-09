@@ -22,27 +22,18 @@ class Search extends Component {
    this.setState({ query: query.trim() })
  }
 
-componentDidUpdate() {
-  console.log(this.state.bookTitle);
-  this.state.booksTitle.forEach((title) => {
-    if(this.state.query.toLowerCase() === title.toLowerCase()){
-      BooksAPI.search(this.state.query).then((booksFound) => {
-      this.setState({booksFound})
-      console.log(this.state.query)
-      console.log(this.state.booksFound)
+ componentDidUpdate() {
+   console.log(this.state.bookTitle);
+   this.state.booksTitle.forEach((title) => {
+     if(this.state.query.toLowerCase() === title.toLowerCase()){
+       BooksAPI.search(this.state.query).then((booksFound) => {
+       this.setState({booksFound})
+       console.log(this.state.query)
+       console.log(this.state.booksFound)
       })
     }
   })
 }
-
-
-
- // componentDidMount() {
- //      BooksAPI.search(this.state.query).then((booksFound) => {
- //      this.setState({booksFound})
- //
- //      })
- //   }
 
   render(){
     let searchedBooks;
@@ -65,14 +56,13 @@ componentDidUpdate() {
                  </div>
                </div>
                <div className="book-title">{book.title}</div>
-               {/* <div className="book-authors">{book.authors.map((author) => (<div key={this.props.id()}>{author}</div>))}</div> */}
+               <div className="book-authors">{book.authors.map((author) => (<div key={this.props.id()}>{author}</div>))}</div>
              </div>
            </li>
          ))}
         </ol>
       )
     }
-
 
     return(
       <div>
@@ -91,7 +81,6 @@ componentDidUpdate() {
                 value={this.state.query}
                 onChange={(event) => {
                   this.updateQuery(event.target.value)
-
                 }
                 }/>
             </div>
