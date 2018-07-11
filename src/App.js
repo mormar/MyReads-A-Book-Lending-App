@@ -15,13 +15,43 @@ class BooksApp extends React.Component {
      */
     books: [],
     showSearchPage: false,
-    bookshelfTitles: ['Currently Reading','Want to Read','Read']
+    bookshelfTitles: ['Currently Reading','Want to Read','Read'],
+    currentlyReading: [],
+    wantToRead: [],
+    read: []
 
   }
   // Load API
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
+      const newState = {
+        books: [],
+        showSearchPage: false,
+        bookshelfTitles: ['Currently Reading','Want to Read','Read'],
+        currentlyReading: [],
+        wantToRead: [],
+        read: []
+      };
+
+      books.forEach(book => {
+        book.shelf
+        if(book.shelf === "currentlyReading") {
+          newState.currentlyReading.push(book);
+        }
+        else if(book.shelf === "wantToRead"){
+          newState.wantToRead.push(book);
+        }
+        else if(book.shelf === "read"){
+          newState.read.push(book);
+        }
+        else {
+
+        }
+      });
+      this.setState(newState);
+      console.log(newState.currentlyReading);
+      console.log(this.state.currentlyReading);
       // console.log(this.state.books)
       // console.log(BooksAPI.search("a"))
     })
@@ -41,6 +71,9 @@ class BooksApp extends React.Component {
           title={this.state.bookshelfTitles}
           books={this.state.books}
           id={this.generatId}>
+          currentlyReading={this.state.currentlyReading}
+          wantToRead={this.state.wantToRead}
+          read={this.state.read}
         </Main>
       </div>
     )

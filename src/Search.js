@@ -13,15 +13,15 @@ class Search extends Component {
    this.setState({ query: query.trim() })
  }
 
- componentDidUpdate() {
-  console.log(this.state.bookTitle);
-  BooksAPI.search(this.state.query).then((booksFound) => {
-    console.log(typeof booksFound);
-    this.setState({booksFound})
-    console.log(this.state.query)
-    console.log(this.state.booksFound)
-  })
- }
+ // componentDidUpdate() {
+ //  console.log(this.state.bookTitle);
+ //  BooksAPI.search(this.state.query).then((booksFound) => {
+ //    console.log(typeof booksFound);
+ //    this.setState({booksFound})
+ //    console.log(this.state.query)
+ //    console.log(this.state.booksFound)
+ //  })
+ // }
 
   render(){
     let searchedBooks;

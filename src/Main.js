@@ -22,17 +22,17 @@ class Main extends Component {
         <div>
           <Bookshelf
             title={this.props.title[0]}
-            // books1={books.books}
+            currentlyReading={this.props.currentlyReading}
             id={this.props.id}
           />
           <Bookshelf
             title={this.props.title[1]}
-            // books1={books.books}
+            wantToRead={this.props.wantToRead}
             id={this.props.id}
           />
           <Bookshelf
             title={this.props.title[2]}
-            // books1={books.books}
+            read={this.props.read}
             id={this.props.id}
           />
         </div>
