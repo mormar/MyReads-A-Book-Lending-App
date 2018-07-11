@@ -23,8 +23,9 @@ class BooksApp extends React.Component {
   }
   // Load API
   componentDidMount() {
+    // componentDidUpdate() {
     BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+      // this.setState({ books })
       const newState = {
         books: [],
         showSearchPage: false,
@@ -70,10 +71,10 @@ class BooksApp extends React.Component {
         <Main
           title={this.state.bookshelfTitles}
           books={this.state.books}
-          id={this.generatId}>
+          id={this.generatId}
           currentlyReading={this.state.currentlyReading}
           wantToRead={this.state.wantToRead}
-          read={this.state.read}
+          read={this.state.read}>
         </Main>
       </div>
     )
