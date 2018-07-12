@@ -3,13 +3,25 @@ import * as BooksAPI from './BooksAPI'
 
 class Bookshelf extends Component {
 
-  changeShelf = function changeShelf(book) {
-    let booksFoundSelect = document.getElementById("idBooksFound");
-    console.log(booksFoundSelect);
-    let booksFoundValue = booksFoundSelect.options[booksFoundSelect.selectedIndex].value;
+  changeShelf = function changeShelf(book, selectId) {
+    let bookIdSelect = document.getElementById(selectId);
+
+    console.log(bookIdSelect);
+    // let currentbookValue = ;
+    let booksFoundValue = bookIdSelect.options[bookIdSelect.selectedIndex].value;
+
     console.log(booksFoundValue);
-    if(booksFoundValue === "wantToRead") {
+    if(booksFoundValue === "currentlyReading") {
+      BooksAPI.update(book, "currentlyReading")
+    }
+    else if(booksFoundValue === "wantToRead") {
       BooksAPI.update(book, "wantToRead")
+    }
+    else if(booksFoundValue === "read") {
+      BooksAPI.update(book, "read")
+    }
+    else {
+
     }
   }
 
@@ -31,7 +43,7 @@ class Bookshelf extends Component {
                    <div className="book-top">
                      {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                      <div className="book-shelf-changer">
-                       <select id="idBooksFound" onChange={this.changeShelf.bind(this, book)}>
+                       <select value="currentlyReading" id="idCurrentlyReading" onChange={this.changeShelf.bind(this, book, "idCurrentlyReading")}>
                          <option value="move" disabled>Move to...</option>
                          <option value="currentlyReading">Currently Reading</option>
                          <option value="wantToRead" >Want to Read</option>
@@ -60,7 +72,7 @@ class Bookshelf extends Component {
                    <div className="book-top">
                      {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                      <div className="book-shelf-changer">
-                       <select>
+                       <select value="wantToRead" id="idWantToRead" onChange={this.changeShelf.bind(this, book, "idWantToRead")}>
                          <option value="move" disabled>Move to...</option>
                          <option value="currentlyReading">Currently Reading</option>
                          <option value="wantToRead">Want to Read</option>
@@ -89,7 +101,7 @@ class Bookshelf extends Component {
                    <div className="book-top">
                      {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                      <div className="book-shelf-changer">
-                       <select>
+                       <select value="read" id="idRead" onChange={this.changeShelf.bind(this, book, "idRead")}>
                          <option value="move" disabled>Move to...</option>
                          <option value="currentlyReading">Currently Reading</option>
                          <option value="wantToRead">Want to Read</option>
