@@ -20,7 +20,7 @@ class Bookshelf extends Component {
       BooksAPI.update(book, "read")
     }
     else {
-
+      BooksAPI.update(book, "none")
     }
   }
 
