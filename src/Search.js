@@ -26,7 +26,7 @@ class Search extends Component {
   render(){
     let searchedBooks;
     if(this.state.booksFound instanceof Array ) {
-      console.log("Works!");
+      // console.log("Works!");
       searchedBooks = (
         <ol className="books-grid">
           {this.state.booksFound.map((book) => (

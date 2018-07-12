@@ -4,11 +4,11 @@ import Bookshelf from './Bookshelf.js'
 class Main extends Component {
 
   render()  {
-    console.log(this.props.currentlyReading);
-    console.log(this.props.wantToRead);
-    console.log(this.props.read);
-    console.log(this.props.title);
-    console.log(this.props.id);
+    // console.log(this.props.currentlyReading);
+    // console.log(this.props.wantToRead);
+    // console.log(this.props.read);
+    // console.log(this.props.title);
+    // console.log(this.props.id);
     // const {titleProps, books, id} = this.props
     return(
       <div>

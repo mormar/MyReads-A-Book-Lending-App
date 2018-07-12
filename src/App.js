@@ -51,8 +51,8 @@ class BooksApp extends React.Component {
         }
       });
       this.setState(newState);
-      console.log(newState.currentlyReading);
-      console.log(this.state.currentlyReading);
+      // console.log(newState.currentlyReading);
+      // console.log(this.state.currentlyReading);
       // console.log(this.state.books)
       // console.log(BooksAPI.search("a"))
     })

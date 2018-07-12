@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI'
 
 class Bookshelf extends Component {
 
+  changeShelf = function changeShelf(book) {
+    let booksFoundSelect = document.getElementById("idBooksFound");
+    console.log(booksFoundSelect);
+    let booksFoundValue = booksFoundSelect.options[booksFoundSelect.selectedIndex].value;
+    console.log(booksFoundValue);
+    if(booksFoundValue === "wantToRead") {
+      BooksAPI.update(book, "wantToRead")
+    }
+  }
+
   render() {
-    console.log(this.props.currentlyReading);
-    console.log(this.props.wantToRead);
-    console.log(this.props.read);
-    console.log(this.props.title);
-    console.log(this.props.id);
+    // console.log(this.props.currentlyReading);
+    // console.log(this.props.wantToRead);
+    // console.log(this.props.read);
+    // console.log(this.props.title);
+    // console.log(this.props.id);
     return(
       <div>
         <div className="bookshelf">
@@ -20,10 +31,10 @@ class Bookshelf extends Component {
                    <div className="book-top">
                      {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                      <div className="book-shelf-changer">
-                       <select>
+                       <select id="idBooksFound" onChange={this.changeShelf.bind(this, book)}>
                          <option value="move" disabled>Move to...</option>
                          <option value="currentlyReading">Currently Reading</option>
-                         <option value="wantToRead">Want to Read</option>
+                         <option value="wantToRead" >Want to Read</option>
                          <option value="read">Read</option>
                          <option value="none">None</option>
                        </select>
