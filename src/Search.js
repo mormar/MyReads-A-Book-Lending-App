@@ -13,15 +13,36 @@ class Search extends Component {
    this.setState({ query: query.trim() })
  }
 
- // componentDidUpdate() {
- //  console.log(this.state.bookTitle);
- //  BooksAPI.search(this.state.query).then((booksFound) => {
- //    console.log(typeof booksFound);
- //    this.setState({booksFound})
- //    console.log(this.state.query)
- //    console.log(this.state.booksFound)
- //  })
- // }
+ componentDidUpdate() {
+  console.log(this.state.bookTitle);
+  BooksAPI.search(this.state.query).then((booksFound) => {
+    console.log(typeof booksFound);
+    this.setState({booksFound})
+    console.log(this.state.query)
+    console.log(this.state.booksFound)
+  })
+ }
+
+ changeShelf = function changeShelf(book, event) {
+  //  console.log(event.target)
+   let bookIdSelect = event.target;
+  //  console.log(bookIdSelect);
+   let booksFoundValue = bookIdSelect.options[bookIdSelect.selectedIndex].value;
+
+  //  console.log(booksFoundValue);
+   if(booksFoundValue === "currentlyReading") {
+     BooksAPI.update(book, "currentlyReading")
+   }
+   else if(booksFoundValue === "wantToRead") {
+     BooksAPI.update(book, "wantToRead")
+   }
+   else if(booksFoundValue === "read") {
+     BooksAPI.update(book, "read")
+   }
+   else {
+
+   }
+ }
 
   render(){
     let searchedBooks;
@@ -35,7 +56,7 @@ class Search extends Component {
                <div className="book-top">
                  {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                  <div className="book-shelf-changer">
-                   <select>
+                   <select value="none" id="idSearch" onChange={this.changeShelf.bind(this, book)}>
                      <option value="move" disabled>Move to...</option>
                      <option value="currentlyReading">Currently Reading</option>
                      <option value="wantToRead">Want to Read</option>

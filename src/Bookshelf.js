@@ -4,14 +4,12 @@ import * as BooksAPI from './BooksAPI'
 class Bookshelf extends Component {
 
   changeShelf = function changeShelf(book, selectId, event) {
-    console.log(event.target)
+    // console.log(event.target)
     let bookIdSelect = event.target;
-
-    console.log(bookIdSelect);
-    // let currentbookValue = ;
+    // console.log(bookIdSelect);
     let booksFoundValue = bookIdSelect.options[bookIdSelect.selectedIndex].value;
 
-    console.log(booksFoundValue);
+    // console.log(booksFoundValue);
     if(booksFoundValue === "currentlyReading") {
       BooksAPI.update(book, "currentlyReading")
     }

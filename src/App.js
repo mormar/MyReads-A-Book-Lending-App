@@ -67,6 +67,9 @@ class BooksApp extends React.Component {
       <div className="app">
         <Search
           id={this.generatId}>
+          currentlyReading={this.state.currentlyReading}
+          wantToRead={this.state.wantToRead}
+          read={this.state.read}>
         </Search>
         <Main
           title={this.state.bookshelfTitles}
