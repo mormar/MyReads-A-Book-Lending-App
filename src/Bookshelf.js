@@ -3,8 +3,9 @@ import * as BooksAPI from './BooksAPI'
 
 class Bookshelf extends Component {
 
-  changeShelf = function changeShelf(book, selectId) {
-    let bookIdSelect = document.getElementById(selectId);
+  changeShelf = function changeShelf(book, selectId, event) {
+    console.log(event.target)
+    let bookIdSelect = event.target;
 
     console.log(bookIdSelect);
     // let currentbookValue = ;
