@@ -12,13 +12,14 @@ body, .app {
 
 .list-books-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: #36241B;
   text-align: center;
 }
 .list-books-title h1 {
-  font-weight: 400;
+  font-weight: 100;
   margin: 0;
-  color: white;
+  color: #D59835;
+  font-size: 3.5rem;
 }
 
 .list-books-content {
@@ -37,6 +38,7 @@ body, .app {
 }
 
 .bookshelf-title {
+  font-size: 2.5rem;
   border-bottom: 1px solid #dedede;
 }
 .bookshelf-books {
@@ -53,7 +55,7 @@ body, .app {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: #3D3B3D;
   background-image: url('./icons/add.svg');
   background-repeat: no-repeat;
   background-position: center;
@@ -83,6 +85,7 @@ body, .app {
   font-size: 1.25em;
   border: none;
   outline: none;
+  font-family: 'Chela One', cursive;
 }
 
 .close-search {
@@ -147,7 +150,7 @@ body, .app {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #60ac5d;
+  background: #C67C4D;
   background-image: url('./icons/arrow-drop-down.svg');
   background-repeat: no-repeat;
   background-position: center;
