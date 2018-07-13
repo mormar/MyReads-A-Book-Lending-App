@@ -6,7 +6,8 @@ class Search extends Component {
   state = {
    query: '',
    booksFound: [],
-   isQuery: false
+   isQuery: false,
+   shelf: ''
  }
 
  updateQuery = (query) => {
@@ -14,13 +15,13 @@ class Search extends Component {
  }
 
  componentDidUpdate() {
-  console.log(this.state.bookTitle);
   BooksAPI.search(this.state.query).then((booksFound) => {
-    console.log(typeof booksFound);
     this.setState({booksFound})
-    console.log(this.state.query)
-    console.log(this.state.booksFound)
   })
+ }
+
+ shouldComponentUpdate(nextProps, nextState) {
+     return nextState.isQuery == this.state.isQuery;
  }
 
  changeShelf = function changeShelf(book, event) {
@@ -32,16 +33,35 @@ class Search extends Component {
   //  console.log(booksFoundValue);
    if(booksFoundValue === "currentlyReading") {
      BooksAPI.update(book, "currentlyReading")
+     bookIdSelect.value = "currentlyReading";
    }
    else if(booksFoundValue === "wantToRead") {
      BooksAPI.update(book, "wantToRead")
+     bookIdSelect.value = "wantToRead";
    }
    else if(booksFoundValue === "read") {
      BooksAPI.update(book, "read")
+     bookIdSelect.value = "read";
    }
    else {
-
+     bookIdSelect.value = "none";
    }
+ }
+ compareId = function (book) {
+  //  console.log(this.props.books);
+  this.props.books.forEach(mainBook => {
+    // console.log(mainBook.title);
+    // console.log(book.title)
+    if(book.title === mainBook.title ) {
+      // console.log("work!");
+      // console.log(mainBook.shelf);
+      // this.setState({shelf: mainBook.shelf});
+      //this.state.shelf(mainBook.shelf)
+    }
+    else{
+      // console.log(":(");
+    }
+  });
  }
 
   render(){
@@ -56,7 +76,7 @@ class Search extends Component {
                <div className="book-top">
                  {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                  <div className="book-shelf-changer">
-                   <select value="none" id="idSearch" onChange={this.changeShelf.bind(this, book)}>
+                   <select value={this.compareId(book)} id="idSearch" onChange={this.changeShelf.bind(this, book)}>
                      <option value="move" disabled>Move to...</option>
                      <option value="currentlyReading">Currently Reading</option>
                      <option value="wantToRead">Want to Read</option>
@@ -91,7 +111,14 @@ class Search extends Component {
               */}
               <input type="text" placeholder="Search by title or author"
                 value={this.state.query}
+
                 onChange={(event) => {
+                  if(this.state.isQuery){
+                    this.setState({isQuery: false});
+                  }
+                  else{
+                    this.setState({isQuery: true});
+                  }
                   this.updateQuery(event.target.value)
                 }
                 }/>

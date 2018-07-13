@@ -49,8 +49,10 @@ class BooksApp extends React.Component {
         else {
 
         }
+        newState.books.push(book);
       });
       this.setState(newState);
+      // console.log(this)
       // console.log(newState.currentlyReading);
       // console.log(this.state.currentlyReading);
       // console.log(this.state.books)
@@ -66,10 +68,11 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Search
-          id={this.generatId}>
+          id={this.generatId}
           currentlyReading={this.state.currentlyReading}
           wantToRead={this.state.wantToRead}
-          read={this.state.read}>
+          read={this.state.read}
+          books={this.state.books}>
         </Search>
         <Main
           title={this.state.bookshelfTitles}
