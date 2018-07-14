@@ -10,24 +10,37 @@ class Search extends Component {
    shelf: ''
  }
 
- updateQuery = (query) => {
-   this.setState({ query: query.trim() })
+ shouldComponentUpdate(nextProps, nextState) {
+     return nextState.isQuery && (nextState.isQuery === this.state.isQuery);
  }
 
  componentDidUpdate() {
   BooksAPI.search(this.state.query).then((booksFound) => {
-    this.setState({booksFound})
+
+    if(this.state.query !== '') {
+      this.props.books.forEach( bookWithShelf => {
+        booksFound.forEach(bookFound => {
+          if((bookWithShelf.title === bookFound.title)) {
+              bookFound.shelf = bookWithShelf.shelf
+            }
+        })
+      })
+
+    }
+this.setState({booksFound})
+
     if(this.state.isQuery){
        this.setState({isQuery: false});
     }
     else{
       this.setState({isQuery: true});
     }
+    this.render();
   })
  }
 
- shouldComponentUpdate(nextProps, nextState) {
-     return nextState.isQuery && (nextState.isQuery === this.state.isQuery);
+ updateQuery = (query) => {
+   this.setState({ query: query.trim() })
  }
 
  changeShelf = function changeShelf(book, event) {
@@ -53,22 +66,6 @@ class Search extends Component {
      bookIdSelect.value = "none";
    }
  }
- compareId = function (book) {
-  //  console.log(this.props.books);
-  this.props.books.forEach(mainBook => {
-    // console.log(mainBook.title);
-    // console.log(book.title)
-    if(book.title === mainBook.title ) {
-      // console.log("work!");
-      // console.log(mainBook.shelf);
-      // this.setState({shelf: mainBook.shelf});
-      //this.state.shelf(mainBook.shelf)
-    }
-    else{
-      // console.log(":(");
-    }
-  });
- }
 
   render(){
     let searchedBooks;
@@ -82,7 +79,7 @@ class Search extends Component {
                <div className="book-top">
                  {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                  <div className="book-shelf-changer">
-                   <select value={this.compareId(book)} id="idSearch" onChange={this.changeShelf.bind(this, book)}>
+                   <select value={book.shelf} id="idSearch" onChange={this.changeShelf.bind(this, book)}>
                      <option value="move" disabled>Move to...</option>
                      <option value="currentlyReading">Currently Reading</option>
                      <option value="wantToRead">Want to Read</option>
