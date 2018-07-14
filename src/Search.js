@@ -20,7 +20,7 @@ class Search extends Component {
     if(this.state.query !== '') {
       this.props.books.forEach( bookWithShelf => {
         booksFound.forEach(bookFound => {
-          if((bookWithShelf.title === bookFound.title)) {
+          if((bookWithShelf.id === bookFound.id)) {
               bookFound.shelf = bookWithShelf.shelf
             }
         })
@@ -79,7 +79,7 @@ this.setState({booksFound})
                <div className="book-top">
                  {typeof book.imageLinks === 'undefined' ? "" : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail })`}}></div> }
                  <div className="book-shelf-changer">
-                   <select value={book.shelf} id="idSearch" onChange={this.changeShelf.bind(this, book)}>
+                   <select value={typeof book.shelf !== 'undefined' ? book.shelf : "none"} id="idSearch" onChange={this.changeShelf.bind(this, book)}>
                      <option value="move" disabled>Move to...</option>
                      <option value="currentlyReading">Currently Reading</option>
                      <option value="wantToRead">Want to Read</option>
