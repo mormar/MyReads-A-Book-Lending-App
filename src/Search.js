@@ -17,7 +17,7 @@ class Search extends Component {
  componentDidUpdate() {
   BooksAPI.search(this.state.query).then((booksFound) => {
 
-    if(this.state.query !== '') {
+    if(this.state.query !== '' && this.props.books.error === "") {
       this.props.books.forEach( bookWithShelf => {
         booksFound.forEach(bookFound => {
           if((bookWithShelf.id === bookFound.id)) {
