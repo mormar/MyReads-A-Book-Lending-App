@@ -6,7 +6,7 @@ class Search extends Component {
   state = {
    query: '',
    booksFound: [],
-   isQuery: false,
+   isQuery: true,
    shelf: ''
  }
 
@@ -17,11 +17,17 @@ class Search extends Component {
  componentDidUpdate() {
   BooksAPI.search(this.state.query).then((booksFound) => {
     this.setState({booksFound})
+    if(this.state.isQuery){
+       this.setState({isQuery: false});
+    }
+    else{
+      this.setState({isQuery: true});
+    }
   })
  }
 
  shouldComponentUpdate(nextProps, nextState) {
-     return nextState.isQuery == this.state.isQuery;
+     return nextState.isQuery && (nextState.isQuery === this.state.isQuery);
  }
 
  changeShelf = function changeShelf(book, event) {
@@ -113,12 +119,6 @@ class Search extends Component {
                 value={this.state.query}
 
                 onChange={(event) => {
-                  if(this.state.isQuery){
-                    this.setState({isQuery: false});
-                  }
-                  else{
-                    this.setState({isQuery: true});
-                  }
                   this.updateQuery(event.target.value)
                 }
                 }/>
