@@ -7,12 +7,6 @@ import Main from './Main.js'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     books: [],
     showSearchPage: false,
     bookshelfTitles: ['Currently Reading','Want to Read','Read'],
@@ -23,9 +17,7 @@ class BooksApp extends React.Component {
   }
   // Load API
   componentDidMount() {
-    // componentDidUpdate() {
     BooksAPI.getAll().then((books) => {
-      // this.setState({ books })
       const newState = {
         books: [],
         showSearchPage: false,
@@ -51,11 +43,6 @@ class BooksApp extends React.Component {
         newState.books.push(book);
       });
       this.setState(newState);
-      // console.log(this)
-      // console.log(newState.currentlyReading);
-      // console.log(this.state.currentlyReading);
-      // console.log(this.state.books)
-      // console.log(BooksAPI.search("a"))
     })
   }
 

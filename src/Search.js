@@ -36,22 +36,31 @@ class Search extends Component {
       else {
         this.setState({isQuery: true});
       }
-      this.render();
     })
+  }
+ else {
+   BooksAPI.search("").then((booksFound) => {
+     this.setState({booksFound})
+
+     if(this.state.isQuery) {
+       this.setState({isQuery: false});
+     }
+     else {
+       this.setState({isQuery: true});
+     }
+   })
   }
  }
 
  updateQuery = (query) => {
-   this.setState({ query: query.trim() })
+   this.setState({ query: query })
  }
 
  changeShelf = function changeShelf(book, event) {
-  //  console.log(event.target)
+
    let bookIdSelect = event.target;
-  //  console.log(bookIdSelect);
    let booksFoundValue = bookIdSelect.options[bookIdSelect.selectedIndex].value;
 
-  //  console.log(booksFoundValue);
    if(booksFoundValue === "currentlyReading") {
      BooksAPI.update(book, "currentlyReading")
      bookIdSelect.value = "currentlyReading";
@@ -72,7 +81,6 @@ class Search extends Component {
   render(){
     let searchedBooks;
     if(this.state.booksFound instanceof Array ) {
-      // console.log("Works!");
       searchedBooks = (
         <ol className="books-grid">
           {this.state.booksFound.map((book) => (
@@ -116,7 +124,6 @@ class Search extends Component {
               */}
               <input type="text" placeholder="Search by title or author"
                 value={this.state.query}
-
                 onChange={(event) => {
                   this.updateQuery(event.target.value)
                 }
