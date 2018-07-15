@@ -1,7 +1,7 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-// import Bookshelf from './Bookshelf.js'
 import Search from './Search.js'
 import Main from './Main.js'
 
@@ -67,21 +67,25 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Search
-          id={this.generatId}
-          currentlyReading={this.state.currentlyReading}
-          wantToRead={this.state.wantToRead}
-          read={this.state.read}
-          books={this.state.books}>
-        </Search>
-        <Main
-          title={this.state.bookshelfTitles}
-          books={this.state.books}
-          id={this.generatId}
-          currentlyReading={this.state.currentlyReading}
-          wantToRead={this.state.wantToRead}
-          read={this.state.read}>
-        </Main>
+        <Route exact path="/" render={() => (
+          <Main
+            title={this.state.bookshelfTitles}
+            books={this.state.books}
+            id={this.generatId}
+            currentlyReading={this.state.currentlyReading}
+            wantToRead={this.state.wantToRead}
+            read={this.state.read}>
+          </Main>
+        )}/>
+        <Route path="/search" render={() => (
+          <Search
+            id={this.generatId}
+            currentlyReading={this.state.currentlyReading}
+            wantToRead={this.state.wantToRead}
+            read={this.state.read}
+            books={this.state.books}>
+          </Search>
+        )}/>
       </div>
     )
   }
