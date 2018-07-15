@@ -36,7 +36,6 @@ class BooksApp extends React.Component {
       };
 
       books.forEach(book => {
-        book.shelf
         if(book.shelf === "currentlyReading") {
           newState.currentlyReading.push(book);
         }

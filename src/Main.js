@@ -21,7 +21,7 @@ class Main extends Component {
             <div>
               </div>
           <div className="open-search">
-            <Link to="/search">Add a book</Link>
+            <Link to="/search" onClick={this.forceUpdate}>Add a book</Link>
           </div>
           </div>
         </div>
