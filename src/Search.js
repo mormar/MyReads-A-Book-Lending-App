@@ -16,28 +16,29 @@ class Search extends Component {
  }
 
  componentDidUpdate() {
-  BooksAPI.search(this.state.query).then((booksFound) => {
-
-    if(this.state.query !== '' && this.props.books.error === "") {
-      this.props.books.forEach( bookWithShelf => {
-        booksFound.forEach(bookFound => {
-          if((bookWithShelf.id === bookFound.id)) {
-              bookFound.shelf = bookWithShelf.shelf
-            }
+  if(this.state.query !== '') {
+    BooksAPI.search(this.state.query).then((booksFound) => {
+      if(!(booksFound.error)) {
+        this.props.books.forEach( bookWithShelf => {
+          booksFound.forEach(bookFound => {
+            if((bookWithShelf.id === bookFound.id)) {
+                bookFound.shelf = bookWithShelf.shelf
+              }
+          })
         })
-      })
+      }
 
-    }
-this.setState({booksFound})
+      this.setState({booksFound})
 
-    if(this.state.isQuery){
-       this.setState({isQuery: false});
-    }
-    else{
-      this.setState({isQuery: true});
-    }
-    this.render();
-  })
+      if(this.state.isQuery) {
+        this.setState({isQuery: false});
+      }
+      else {
+        this.setState({isQuery: true});
+      }
+      this.render();
+    })
+  }
  }
 
  updateQuery = (query) => {
