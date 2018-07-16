@@ -11,5 +11,9 @@ Creating myreads for the Front-End Web Developer Nanodegree Program in Google De
 ## Contributing
 First commit is the starter code from [Udacity](https://github.com/udacity/reactnd-project-myreads-starter).
 
+## Page appearance 
+Homepage
 ![main](images/main.png)
+
+Search
 ![search](images/search.png)
